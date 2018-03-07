@@ -5,9 +5,9 @@ class Books extends Component {
     return (
       <ol className='books-grid'>
         {this.props.books.filter((book) => (
-          book.shelf === 'currentlyReading'
+          book.shelf === this.props.shelf
         )).map((book) => (
-          <li>
+          <li key={book.id}>
             <div className='book'>
               <div className='book-top'>
                 <div className='book-cover' style={{width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
