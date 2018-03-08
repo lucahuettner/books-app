@@ -13,16 +13,17 @@ class Search extends Component {
     this.setState({query: query});
     BooksAPI.search(query).then((results) => this.shelf(results)).catch(() => this.setState({results: []}));
     console.log(this.state);
-    this.shelf();
   };
 
-  // TODO: default shelf to none
+  // add fitting shelf to search result
   shelf = (results) => {
+    // add shelf = none to every result
+    results.forEach((result) => result.shelf = 'none');
+    // check if book is already in a shelf and update shelf property of result
     this.props.books.forEach((book) => {
       results.forEach((result, i) => {
         if (book.id === result.id) {
           results[i].shelf = book.shelf;
-          console.log(results[i].shelf);
         }
       });
     });
