@@ -1,8 +1,37 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import Books from './Books';
 
 class Search extends Component {
+  state = {
+    query: '',
+    results: []
+  };
+  updateQuery = (query) => {
+    console.log(query);
+    this.setState({query: query});
+    BooksAPI.search(query).then((results) => this.shelf(results)).catch(() => this.setState({results: []}));
+    console.log(this.state);
+    this.shelf();
+  };
+
+  // TODO: default shelf to none
+  shelf = (results) => {
+    this.props.books.forEach((book) => {
+      results.forEach((result, i) => {
+        if (book.id === result.id) {
+          results[i].shelf = book.shelf;
+          console.log(results[i].shelf);
+        }
+      });
+    });
+    this.setState({results: results});
+    console.log(this.state);
+  };
+
   render() {
+    const {query} = this.state;
     return (
       <div className='search-books'>
         <div className='search-books-bar'>
@@ -16,12 +45,19 @@ class Search extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type='text' placeholder='Search by title or author'/>
-
+            <input
+              type='text'
+              placeholder='Search by title or author'
+              value={query}
+              onChange={(event) => this.updateQuery(event.target.value)}/>
           </div>
         </div>
         <div className='search-books-results'>
-          <ol className='books-grid'></ol>
+          <ol className='books-grid'>
+            <Books
+              books={this.state.results}
+              updateShelf={this.props.updateShelf}/>
+          </ol>
         </div>
       </div>
     );
