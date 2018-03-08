@@ -10,7 +10,9 @@ class Search extends Component {
   };
   updateQuery = (query) => {
     console.log(query);
+    // update state.query
     this.setState({query: query});
+    // use BooksAPI to search new Books
     BooksAPI.search(query).then((results) => this.shelf(results)).catch(() => this.setState({results: []}));
     console.log(this.state);
   };
