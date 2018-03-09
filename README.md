@@ -20,8 +20,8 @@ To get started clone this repo to your computer or download the zip and extract 
 
 In this application you can sort and categorize books in different "shelves" The three shelves are:
 
-Currently Reading
-Want to Read
-Read
+ * Currently Reading
+ * Want to Read
+ * Read
 
 You can controle which books belong to which shelf by using the dropdown menu each book has. You can also remove the book complety from the shelves. If you want you can search for new Books using the search function and add them to one of the shelves.
