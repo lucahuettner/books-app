@@ -6,14 +6,13 @@ class Books extends Component {
     console.log(books);
     return (
       <ol className='books-grid'>
-        // loop over each book
         {books.map((book) => (
           <li key={book.id}>
             <div className='book'>
               <div className='book-top'>
                 <div className='book-cover' style={{width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
                 <div className='book-shelf-changer'>
-                  // set the current shelf as the default value of the dropdown menu
+                  {/*set the current shelf as the default value of the dropdown menu*/}
                   <select defaultValue={book.shelf} onChange={(e) => updateShelf(book, e.target.value)}>
                     <option value='none' disabled>Move to...</option>
                     <option value='currentlyReading'>Currently Reading</option>
