@@ -22,7 +22,6 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf).then(BooksAPI.getAll().then((books) => {
           // load new book array
           this.setState({books});
-          console.log(this.state);
         }));
 
   };

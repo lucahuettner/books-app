@@ -9,12 +9,10 @@ class Search extends Component {
     results: []
   };
   updateQuery = (query) => {
-    console.log(query);
     // update state.query
     this.setState({query: query});
     // use BooksAPI to search new Books
     BooksAPI.search(query).then((results) => this.shelf(results)).catch(() => this.setState({results: []}));
-    console.log(this.state);
   };
 
   // add fitting shelf to search result
@@ -30,7 +28,6 @@ class Search extends Component {
       });
     });
     this.setState({results: results});
-    console.log(this.state);
   };
 
   render() {
