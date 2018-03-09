@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import Books from './Books';
 import Search from './Search';
+import Shelves from './Shelves';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 
@@ -18,15 +18,28 @@ class BooksApp extends React.Component {
   }
 
   updateShelf = (book, shelf) => {
+    const self = this;
     // update the shelf in the api
     BooksAPI.update(book, shelf).then(BooksAPI.getAll().then((books) => {
           // load new book array
-          this.setState({books});
+          self.setState({books});
         }));
 
   };
 
   render() {
+    const shelves = [
+      {
+      title: 'Currently Reading',
+      filter: 'currentlyReading'
+    },{
+      title: 'Want to Read',
+      filter: 'wantToRead'
+    },{
+      title: 'Read',
+      filter: 'read'
+    }];
+
     return (
       <div className='app'>
         <Route path='/search' render={() => (
@@ -41,36 +54,10 @@ class BooksApp extends React.Component {
             </div>
             <div className='list-books-content'>
               <div>
-                <div className='bookshelf'>
-                  <h2 className='bookshelf-title'>Currently Reading</h2>
-                  <div className='bookshelf-books'>
-                    <Books
-                      books={this.state.books.filter((book) => (
-                        book.shelf === 'currentlyReading'
-                      ))}
-                      updateShelf={this.updateShelf}/>
-                  </div>
-                </div>
-                <div className='bookshelf'>
-                  <h2 className='bookshelf-title'>Want to Read</h2>
-                  <div className='bookshelf-books'>
-                    <Books
-                      books={this.state.books.filter((book) => (
-                        book.shelf === 'wantToRead'
-                      ))}
-                      updateShelf={this.updateShelf}/>
-                  </div>
-                </div>
-                <div className='bookshelf'>
-                  <h2 className='bookshelf-title'>Read</h2>
-                  <div className='bookshelf-books'>
-                    <Books
-                      books={this.state.books.filter((book) => (
-                        book.shelf === 'read'
-                      ))}
-                      updateShelf={this.updateShelf}/>
-                  </div>
-                </div>
+                <Shelves
+                  books={this.state.books}
+                  updateShelf={this.updateShelf}
+                  shelves={shelves}/>
               </div>
             </div>
             <div className='open-search'>
