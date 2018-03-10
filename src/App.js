@@ -22,7 +22,6 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf).then(setTimeout(() => {
       BooksAPI.getAll().then((books) => {
           // load new book array
-          console.log(books);
           self.setState({books});
         });
     }, 300)
@@ -31,7 +30,6 @@ class BooksApp extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const shelves = [
       {
       title: 'Currently Reading',
