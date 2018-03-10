@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Books from './Books';
 
@@ -13,7 +13,13 @@ class Search extends Component {
     // update state.query
     this.setState({query: query});
     // use BooksAPI to search new Books
-    BooksAPI.search(query).then((results) => self.shelf(results)).catch(() => self.setState({results: []}));
+    if (query) {
+      BooksAPI.search(query).then((results) => self.shelf(results)).catch(() => self.setState({results: []}));
+    } else {
+      setTimeout(() => {
+        self.setState({results: []});
+      }, 400);
+    }
   };
 
   // add fitting shelf to search result

@@ -1,6 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {Route, Link} from 'react-router-dom';
 import Search from './Search';
 import Shelves from './Shelves';
 import * as BooksAPI from './BooksAPI';
@@ -20,14 +19,19 @@ class BooksApp extends React.Component {
   updateShelf = (book, shelf) => {
     const self = this;
     // update the shelf in the api
-    BooksAPI.update(book, shelf).then(BooksAPI.getAll().then((books) => {
+    BooksAPI.update(book, shelf).then(setTimeout(() => {
+      BooksAPI.getAll().then((books) => {
           // load new book array
+          console.log(books);
           self.setState({books});
-        }));
+        });
+    }, 300)
+);
 
   };
 
   render() {
+    console.log(this.state);
     const shelves = [
       {
       title: 'Currently Reading',
