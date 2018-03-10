@@ -21,6 +21,17 @@ class Search extends Component {
       }, 400);
     }
   };
+  updateResult = (book, shelf) => {
+    const self = this;
+    this.props.updateShelf(book, shelf);
+    this.state.results.forEach((result, i) => {
+      if (result.id === book.id) {
+        self.setState((prevState) => (
+          prevState.results[i].shelf = shelf
+        ));
+      }
+    });
+  };
 
   // add fitting shelf to search result
   shelf = (results) => {
@@ -63,7 +74,7 @@ class Search extends Component {
           <ol className='books-grid'>
             <Books
               books={this.state.results}
-              updateShelf={this.props.updateShelf}/>
+              updateShelf={this.updateResult}/>
           </ol>
         </div>
       </div>
